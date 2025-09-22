@@ -1,19 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
-from typing import List
-from pydantic import BaseModel
-from backend.app.services.content_generator import  ContentGenerator
-from schemas import ContentRequest, HashtagRequest,PostIdeasRequest
-from backend.app.database import  get_db
+from app.services.content_generator import  ContentGenerator
+from ..schemas import ContentRequest, HashtagRequest,PostIdeasRequest
+
 
 
 content_router = APIRouter()
 
 
-@router.post("/generate/caption")
+@content_router.post("/generate/caption")
 async def generate_caption(request:ContentRequest, content_gen: ContentGenerator = Depends(ContentGenerator)):
     try:
-        result = await content_gen.generate_hashtags(
-            **request.dict(),
+        result = await content_gen.generate_caption(
+            **request.dict()
         )
         return result
     except Exception as e:
@@ -28,6 +26,7 @@ async def generate_hashtags(request:HashtagRequest, content_gen: ContentGenerato
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @content_router.post("/generate/post-ideas")
 async def generate_post_ideas(

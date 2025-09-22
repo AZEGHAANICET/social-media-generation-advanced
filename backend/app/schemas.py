@@ -1,14 +1,10 @@
 from pydantic import BaseModel
 
-
-
-
 class ContentRequest(BaseModel):
     prompt:str
     platform:str
     tone:str
     max_length:int=20
-
 
 class HashtagRequest(BaseModel):
     content:str

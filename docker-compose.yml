@@ -15,7 +15,9 @@ services:
       - DATABASE_URL=postgresql://azegha:Azegha2002#@db:5432/social_network_generator
     depends_on:
       - db
-      -
+    ports:
+      - "8000:8000"
+
   frontend:
     build: ./frontend
     ports:
