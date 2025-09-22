@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=social_network_generator
+      - POSTGRES_USER=azegha
+      - POSTGRES_PASSWORD=Azegha2002
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://azegha:Azegha2002#@db:5432/social_network_generator
+    depends_on:
+      - db
+      -
+  frontend:
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+volumes:
+  postgres_data:
